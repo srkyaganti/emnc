@@ -55,71 +55,56 @@
       </div>
     </nav>
   </header>
-   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="treeview">
-          <a href="#">
+        <li class="treeview {!! Request::is('dashboard') ? 'active' : '' !!}" >
+          <a href="dashboard">
             <i class="fa fa-dashboard"></i><span>Dashboard</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li class="treeview {!! Request::is('profile') ? 'active' : '' !!}">
+          <a href="profile" > 
             <i class="fa fa-user-circle"></i>
             <span>Profile</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user-circle"></i>
-            <span>Profile</span>
+        <li class="treeview {!! Request::is('statistics') ? 'active' : '' !!}">
+          <a href="statistics">
+            <i class="fa fa-area-chart"></i>
+            <span>Statistics</span>
           </a>
         </li>
       </ul>
     </section>
-    <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Control panel</small>
-      </h1>
+      @yield('content-header')
     </section>
 
-    <!-- Main content -->
-    <section class="content">  
+    <section class="content">
+      @include('partials.errors')
+      @include('partials.success')
       @yield('content')        
     </section>
   </div>
-  <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.3.8
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; {{ date('Y') }} <a href="#">Parna Solutions</a>.</strong> All rights
     reserved.
   </footer>
 </div>
-<!-- ./wrapper -->
-<!-- jQuery 3.1.1 -->
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
-<!-- jQuery UI 1.12.0 -->
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
-<!-- Bootstrap 3.3.7 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/app.min.js"></script>
-<select src = {{ url('css/iCheck/icheck.min.js') }}></select>
+<script src="{{ url('js/app.min.js') }}"></script>
+<script src ="{{ url('css/iCheck/icheck.min.js') }}"></script>
+
+@yield('scripts')
 </body>
 </html>

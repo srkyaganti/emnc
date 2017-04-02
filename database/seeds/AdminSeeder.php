@@ -15,10 +15,19 @@ class AdminSeeder extends Seeder
 		    'email'    => 'admin@emnc.com',
 		    'password' => 'password',
         ];
-
         $user = Sentinel::registerAndActivate($credentials);
-
         $role = Sentinel::findRoleBySlug('admin');
         $user->roles()->attach($role);
+        $user->save();
+
+
+        $credentials = [
+            'email'    => 'user@emnc.com',
+            'password' => 'password',
+        ];
+        $user = Sentinel::registerAndActivate($credentials);
+        $role = Sentinel::findRoleBySlug('user');
+        $user->roles()->attach($role);
+        $user->save();
     }
 }
