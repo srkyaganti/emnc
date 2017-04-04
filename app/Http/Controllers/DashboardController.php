@@ -5,14 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Sentinel;
 use Session;
+use Roles;
+use Activation;
+use App\User;
 
 class DashboardController extends Controller
 {
     public function home()
     {
-    	return view('dashboard.home');
+        if(Sentinel::inRole('admin'))
+        {   
+            $roles = Roles::all()->where('slug','user')->first();
+            $users = $roles->getUsers();
+            return view('dashboard.home', compact('users'));
+        }
+        else
+        {
+            $user = Sentinel::check();
+            $devices = User::find($user->id)->devices()->get();
+            return view('dashboard.home', compact('devices'));    
+        }
+    	
     }
-
     public function profile()
     {
     	$user = Sentinel::getUser();
@@ -65,5 +79,12 @@ class DashboardController extends Controller
             $errors->push("You entered an incorrect password!");
             return back()->withInput()->with('errors', $errors);
         }
+    }
+
+    public function viewProfile($email)
+    {
+        $user = Sentinel::findByCredentials(['login' => $email]);
+        $devices = User::find($user->id)->devices()->get();
+        return view('pages.profile',compact(['user','devices']));
     }
 }

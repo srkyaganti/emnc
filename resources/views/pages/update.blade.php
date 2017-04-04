@@ -48,13 +48,13 @@
                             <p style="color:red">*Please don't refesh the page or go back</p>
                             @include('partials.errors')
                             <form class="form" role="form" method="POST" action="{{ url('registation-complete') }}">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
+                                {{csrf_field()}}
+                                <input type="hidden" name="email" value="{{ $email }}">
                                 <div class="row">
                                     <div class="form-group">
                                         <label class="col-md-12">E-Mail Address</label>
                                         <div class="col-md-12">
-                                            <input type="email" class="form-control" name="email" value="{{ $email }}" disabled>
+                                            <input type="email" class="form-control" value="{{ $email }}">
                                         </div>
                                     </div>    
                                 </div>

@@ -19,6 +19,14 @@ Home
 	@endif
 @endsection
 
-@section('scripts')
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-@endsection
+@if(Sentinel::check()->inRole('admin'))
+	@section('modals')
+		@include('dashboard.admin.modal');
+	@endsection
+@else
+	@section('scripts')
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+		@include('dashboard.charts')
+	@endsection
+@endif
+

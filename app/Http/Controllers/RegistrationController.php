@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Activation;
-use Sentinel; 
+use Sentinel;
 use Mail;
 use Session;
+use App\Mail\NewUser;
 
 class RegistrationController extends Controller
 {
     public function createUser(Request $request)
     {
+    	$this->validate($request, [
+	        'email' => 'required|max:255|unique:users,email',
+	    ]);
+
     	$credentials = [
 			'email' => $request->email,
 			'password' => str_random(rand(20, 100)),
@@ -25,6 +30,7 @@ class RegistrationController extends Controller
 		$code = Activation::create($user)->code;
 
 		Mail::to($user)->send(new NewUser($user->email, $code));
+
 		Session::flash('success', 'Invitation sent!');
 		return redirect('dashboard');
 
@@ -32,9 +38,8 @@ class RegistrationController extends Controller
 
     public function activateUser($email, $code)
 	{
-		return view('pages.update')->with('email',$email);
-		$user = Sentinel::findByCredentials(['login' => $email]);
 		
+		$user = Sentinel::findByCredentials(['login' => $email]);
 		if (Activation::complete($user, $code))
 		{
 			if(Sentinel::guest())
@@ -62,7 +67,7 @@ class RegistrationController extends Controller
 	    	'password' => $request->password,
 	    	'organization' => $request->name,
 	    	'mobile' => $request->mobile,
-	    	'address' => $request->location
+	    	'address' => $request->address
 		];
 
 		$user = Sentinel::update($user, $credentials);

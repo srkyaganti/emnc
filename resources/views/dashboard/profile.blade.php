@@ -16,7 +16,8 @@ Profile
 			<div class="box box-primary">
 	            <div class="box-header with-border">
 	              <h3 class="box-title">Update Profile</h3>
-	            </div>
+				  <a href="{{ url('signout-all') }}" class="btn btn-danger pull-right">SignOut of all devices</a>
+			    </div>
 	            <!-- /.box-header -->
 	            <div class="box-body">
 	              <form class="form-horizontal" action="{{ url('updateprofile') }}" method="POST">

@@ -16,9 +16,6 @@
   <link rel="stylesheet" href="{{ url('css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skin-->
   <link rel="stylesheet" href="{{ url('css/skin-green.min.css') }}">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="{{ url('css/iCheck/flat/green.css') }}">
-
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -59,22 +56,24 @@
     <section class="sidebar">
       <ul class="sidebar-menu">
         <li class="treeview {!! Request::is('dashboard') ? 'active' : '' !!}" >
-          <a href="dashboard">
+          <a href="{{ url('dashboard') }}">
             <i class="fa fa-dashboard"></i><span>Dashboard</span>
           </a>
         </li>
         <li class="treeview {!! Request::is('profile') ? 'active' : '' !!}">
-          <a href="profile" > 
+          <a href="{{ url('profile') }}" > 
             <i class="fa fa-user-circle"></i>
             <span>Profile</span>
           </a>
         </li>
-        <li class="treeview {!! Request::is('statistics') ? 'active' : '' !!}">
-          <a href="statistics">
-            <i class="fa fa-area-chart"></i>
-            <span>Statistics</span>
-          </a>
-        </li>
+        @if(Sentinel::inRole('user'))
+          <li class="treeview {!! Request::is('statistics') ? 'active' : '' !!}">
+            <a href="{{ url('statistics') }}">
+              <i class="fa fa-area-chart"></i>
+              <span>Statistics</span>
+            </a>
+          </li>
+        @endif
       </ul>
     </section>
   </aside>
@@ -82,6 +81,7 @@
   <div class="content-wrapper">
     <section class="content-header">
       @yield('content-header')
+      
     </section>
 
     <section class="content">
@@ -94,17 +94,22 @@
     <strong>Copyright &copy; {{ date('Y') }} <a href="#">Parna Solutions</a>.</strong> All rights
     reserved.
   </footer>
+  @yield('modals')
 </div>
+
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 <script src="{{ url('js/app.min.js') }}"></script>
-<script src ="{{ url('css/iCheck/icheck.min.js') }}"></script>
+<script src="{{ url('js/demo.js') }}"></script>
 
 @yield('scripts')
+
 </body>
 </html>

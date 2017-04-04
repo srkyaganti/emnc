@@ -27,4 +27,10 @@ class LoginController extends Controller
 		Sentinel::logout();
 		return redirect('/');
 	}
+
+	public function logoutAll()
+	{
+		Sentinel::logout(null,true);
+		return redirect('/');
+	}
 }

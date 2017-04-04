@@ -33,7 +33,7 @@ class NewUser extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.newuser')
+        return $this->view('email.newuser')
                     ->subject('EnergyMNC: Activate your account')
                     ->with([
                         'email' => $this->email,

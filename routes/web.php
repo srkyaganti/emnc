@@ -33,11 +33,13 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('profile', 'DashboardController@profile');
 
 	Route::post('updateprofile', 'DashboardController@updateProfile');
+	
 	Route::post('updatepassword', 'DashboardController@updatePassword');
 
 	Route::get('signout', 'LoginController@logout');
-	
-	Route::post('registation-complete', 'RegistrationController@registationComplete');
+	Route::get('signout-all', 'LoginController@logoutAll');
+
+	Route::post('registation-complete', 'RegistrationController@registrationComplete');
 });
 
 Route::group(['middleware' => 'user'], function() {
@@ -47,5 +49,9 @@ Route::group(['middleware' => 'user'], function() {
 Route::group(['middleware' => 'admin'], function() {
 
 	Route::post('create-user','RegistrationController@createUser');
-	
+	Route::get('view/{email}', 'DashboardController@viewProfile');
 });
+
+//Routes to insert data from devices
+Route::post('/insertdata', 'HardwareController@insertData');
+Route::post('/toggle-power/{id}', 'HardwareController@deviceOnOff');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDevicesTable extends Migration
+class CreateDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,20 @@ class CreateDevicesTable extends Migration
      * @return void
      */
     public function up()
-    {  
-        Schema::create('devices', function (Blueprint $table) {
+    {
+        Schema::create('data', function (Blueprint $table) {
             
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
             $table->string('device_id');
-            $table->string('name')->nullable();
-            $table->boolean('status')->default(false);
+            $table->float('current', 5, 3);
             $table->timestamps();
 
             $table->engine = 'InnoDB';
-            $table->unique('device_id');
+            $table->foreign('device_id')->references('device_id')->on('devices')->onDelete('cascade');
+;
+
         });
+
     }
 
     /**

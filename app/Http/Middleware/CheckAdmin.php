@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Sentinel;
 
 class CheckAdmin
 {
@@ -15,7 +16,7 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(Sentinel::inRole('user'))
+        if(Sentinel::inRole('admin'))
             return $next($request);
         return redirect('/');
     }
