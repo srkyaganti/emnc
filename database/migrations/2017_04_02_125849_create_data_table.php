@@ -22,8 +22,6 @@ class CreateDataTable extends Migration
 
             $table->engine = 'InnoDB';
             $table->foreign('device_id')->references('device_id')->on('devices')->onDelete('cascade');
-;
-
         });
 
     }

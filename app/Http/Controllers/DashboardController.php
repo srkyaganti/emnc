@@ -85,6 +85,6 @@ class DashboardController extends Controller
     {
         $user = Sentinel::findByCredentials(['login' => $email]);
         $devices = User::find($user->id)->devices()->get();
-        return view('pages.profile',compact(['user','devices']));
+        return view('dashboard.admin.viewprofile',compact(['user','devices']));
     }
 }

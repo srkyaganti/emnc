@@ -70,8 +70,9 @@ class RegistrationController extends Controller
 	    	'address' => $request->address
 		];
 
-		$user = Sentinel::update($user, $credentials);
 
+		$user = Sentinel::update($user, $credentials);
+		
 		return redirect('dashboard');
 	}
 }

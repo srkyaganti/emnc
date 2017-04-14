@@ -17,16 +17,18 @@
           <tbody>
             @foreach ($devices as $device)
               <tr>
-                <td>{{ $device->device_id }}</td>
-                <td>{{ $device->name }}</td>
                 <td>
-                  @if($device->status)
-                    ON
-                  @else
-                    OFF
-                  @endif
+                  {{ $device->name }}
+                  <a href="" class="fa fa-pencil-square-o">(edit)</a></i></a>
                 </td>
-                <td><a href="" class="btn btn-danger">Remove</a></td>
+                
+                  @if($device->status)
+                    <td>ON</td>
+                    <td><a href="{{ url('toggle-power/') }}{{ $device->id }}" class="btn btn-danger">Turn OFF</a></td>
+                  @else
+                    <td>OFF</td>
+                    <td><a href="{{ url('toggle-power/') }}{{ $device->id }}" class="btn btn-success">Turn ON</a></td>
+                  @endif
               </tr>
             @endforeach
           </tbody>
@@ -43,9 +45,7 @@
         <h3 class="box-title">Area Chart</h3>
       </div>
       <div class="box-body">
-        <div class="chart">
-          <canvas id="myChart" style="height:250px"></canvas>
-        </div>
+        
       </div>
       <!-- /.box-body -->
     </div>
@@ -59,7 +59,7 @@
         <h3 class="box-title">Donut Chart</h3>
       </div>
       <div class="box-body">
-        <canvas id="pieChart" style="height:250px"></canvas>
+        
       </div>
       <!-- /.box-body -->
     </div>

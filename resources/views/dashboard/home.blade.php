@@ -11,22 +11,18 @@ Home
   </h1>
 @endsection
 
-@section('content')
-	@if (Sentinel::check()->inRole('admin'))
+@if (Sentinel::check()->inRole('admin'))
+	@section('content')
 		@include('dashboard.admin.stats')
-	@else
-		@include('dashboard.stats')
-	@endif
-@endsection
-
-@if(Sentinel::check()->inRole('admin'))
+	@endsection
 	@section('modals')
 		@include('dashboard.admin.modal');
 	@endsection
 @else
+	@section('content')
+		@include('dashboard.stats')
+	@endsection
 	@section('scripts')
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 		@include('dashboard.charts')
 	@endsection
 @endif
-

@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::group(['middleware' => 'user'], function() {
-
+	Route::post('toggle-power/{id}', 'HardwareController@deviceOnOff');
 });
 
 Route::group(['middleware' => 'admin'], function() {
@@ -54,4 +54,3 @@ Route::group(['middleware' => 'admin'], function() {
 
 //Routes to insert data from devices
 Route::post('/insertdata', 'HardwareController@insertData');
-Route::post('/toggle-power/{id}', 'HardwareController@deviceOnOff');
