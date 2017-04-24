@@ -43,13 +43,20 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::group(['middleware' => 'user'], function() {
-	Route::post('toggle-power/{id}', 'HardwareController@deviceOnOff');
+	Route::post('toggle-power', 'HardwareController@deviceOnOff');
+	Route::get('statistics', 'DashboardController@getStatistics');
+	Route::get('test', 'DashboardController@postStatistics');
+
+	Route::post('change-name', 'DeviceController@changeName');
 });
 
 Route::group(['middleware' => 'admin'], function() {
 
 	Route::post('create-user','RegistrationController@createUser');
 	Route::get('view/{email}', 'DashboardController@viewProfile');
+
+	Route::post('add-devices', 'DeviceController@addDevices');
+	Route::post('remove-device', 'DeviceController@removeDevice');
 });
 
 //Routes to insert data from devices

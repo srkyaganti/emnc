@@ -13,12 +13,12 @@ class LoginController extends Controller
 			'email' => $request->email,
 			'password' => $request->password,
 		];
-
+		
 		if (Sentinel::authenticate($credentials,false))
 			return redirect('dashboard');
 
 		$errors = collect()->push('Email and password do not match!');
-        return back()->withInput()->with('errors', $errors);
+		return back()->withInput()->with('errors', $errors);
 	}
 
 	public function logout()

@@ -21,6 +21,7 @@ class DashboardController extends Controller
         }
         else
         {
+            //$data = 
             $user = Sentinel::check();
             $devices = User::find($user->id)->devices()->get();
             return view('dashboard.home', compact('devices'));    
@@ -87,4 +88,20 @@ class DashboardController extends Controller
         $devices = User::find($user->id)->devices()->get();
         return view('dashboard.admin.viewprofile',compact(['user','devices']));
     }
+
+    public function getStatistics()
+    {
+        return view('dashboard.statistics');
+    }
+
+    public function postStatistics(Request $request)
+    {
+        $this->validate($request, [
+            'daterange' => 'required|min:41|max:41',
+        ]); 
+        return response()->json([
+            'field' => $request->_token,
+            'content' => $request->daterange
+        ]);
+    }   
 }

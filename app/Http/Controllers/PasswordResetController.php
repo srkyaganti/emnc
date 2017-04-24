@@ -10,6 +10,7 @@ use Reminder;
 use Session;
 use DB;
 use Mail;
+use App\User;
 
 class PasswordResetController extends Controller
 {
@@ -19,7 +20,11 @@ class PasswordResetController extends Controller
             $errors = collect()->push('Invalid or expired password reset code; please request a new link.');
             return redirect('/')->withInput()->with('errors', $errors);
         }
-        return view('forgotpassword.resetpassword')->with('code', $code);
+
+        
+        $id = DB::table('reminders')->select('user_id')->where('code',$code)->get();
+        $email = User::find($id[0]->user_id)->email;
+        return view('forgotpassword.resetpassword')->with(['code'=>$code,'email'=>$email]);
     }
 
     public function postReset(Request $request,$code)
@@ -27,8 +32,8 @@ class PasswordResetController extends Controller
         $this->validate($request,[
             'password' => 'required|max:255|confirmed'
         ]);
-        
         $user = Sentinel::findUserByCredentials(['email' => $request->email]);
+        
         $password = $request->password;
 
         if ($reminder = Reminder::complete($user, $code, $password))
@@ -68,7 +73,7 @@ class PasswordResetController extends Controller
 
             $message = 'An Email has been sent to your Email address';
             Session::flash('success', $message);
-            return redirect('/password/reset');
+            return redirect('password/reset');
         }        
     }
 

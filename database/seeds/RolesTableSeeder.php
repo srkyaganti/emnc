@@ -31,6 +31,11 @@ class RolesTableSeeder extends Seeder
 			'name' => 'User',
 			'slug' => 'user',
 		]);
+
+		$role = Sentinel::findRoleBySlug('user');
+		$role->permissions = [
+		];
+		$role->save();
 		
 	}
 }

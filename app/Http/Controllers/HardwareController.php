@@ -11,7 +11,7 @@ class HardwareController extends Controller
     	
     }
 
-    public function deviceOnOff($id)
+    public function deviceOnOff(Request $request)
     {
     	
     }

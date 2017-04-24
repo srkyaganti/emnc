@@ -19,16 +19,19 @@
               <tr>
                 <td>
                   {{ $device->name }}
-                  <a href="" class="fa fa-pencil-square-o">(edit)</a></i></a>
+                  <a data-toggle="modal" data-name="{{ $device->name }}" data-id="{{ $device->id }}" href="#changeDeviceName" class="open-changeDeviceName fa fa-pencil-square-o">{{ ($device->name == "")?"add":"edit" }}</a></i></a>
                 </td>
                 
-                  @if($device->status)
-                    <td>ON</td>
-                    <td><a href="{{ url('toggle-power/') }}{{ $device->id }}" class="btn btn-danger">Turn OFF</a></td>
-                  @else
-                    <td>OFF</td>
-                    <td><a href="{{ url('toggle-power/') }}{{ $device->id }}" class="btn btn-success">Turn ON</a></td>
-                  @endif
+                <td>{{ ($device->status)?"ON":"OFF" }}</td>
+                
+                <td>
+                  <form action="{{ url('toggle-power') }}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="id" value="{{ $device->id }}">
+                    <input type="submit" value="Turn {{ ($device->status)?'OFF':'ON' }}" class="btn btn-primary">
+                  </form>
+                </td>
+
               </tr>
             @endforeach
           </tbody>

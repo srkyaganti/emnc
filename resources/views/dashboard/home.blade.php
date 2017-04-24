@@ -6,9 +6,9 @@ Home
 
 @section('content-header')
 	<h1>
-    Dashboard
-    <small>Control panel</small>
-  </h1>
+	    Dashboard
+	    <small>Control panel</small>
+  	</h1>
 @endsection
 
 @if (Sentinel::check()->inRole('admin'))
@@ -22,7 +22,11 @@ Home
 	@section('content')
 		@include('dashboard.stats')
 	@endsection
+	@section('modals')
+		@include('dashboard.partials.changedevicename')
+	@endsection
 	@section('scripts')
-		@include('dashboard.charts')
+		<script src="{{ url('js/dashboard/chart.js') }}"></script>
+		<script src="{{ url('js/dashboard/changedevicename.js') }}"></script>
 	@endsection
 @endif

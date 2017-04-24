@@ -24,6 +24,7 @@ class CreateDevicesTable extends Migration
 
             $table->engine = 'InnoDB';
             $table->unique('device_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
